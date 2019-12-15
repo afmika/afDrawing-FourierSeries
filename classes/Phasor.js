@@ -7,7 +7,7 @@
 class Phasor {
 	constructor(amplitude, pulsation, phase) {
 		// Phasor(t) = A. exp((wt + phi) i)
-		// Note: Phase = start angle (when t = 0)
+		// Note: Phase = start angle (at t = 0)
 		// Phasor(0) = A. exp(phase * i)
 		this.setAmplitude(amplitude); // A
 		this.setPulsation(pulsation); // w

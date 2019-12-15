@@ -40,10 +40,10 @@ class DFT {
 		for (let k = 0; k < nb_points; k++) {
 			let temp_k = new Complex(0, 0); 
 			for (var n = 0; n < nb_points; n++) {
-				let phi = (2 * Math.PI * k * n) / nb_points;  
+				let phi = (2 * Math.PI * k * n) / nb_points; 
 				temp_k = temp_k.add(new Complex(
-					data[n] * Math.cos(phi),
-					-data[n] * Math.sin(phi)
+					data[n] * Math.cos(phi), /* plugging -1 will reverse the drawing with pi/2 rotation */
+					data[n] * Math.sin(phi) /* plugging -1 will reverse the drawing order */
 				));
 			}
 			temp_k = temp_k.times( 1 / nb_points );

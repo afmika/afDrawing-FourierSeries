@@ -65,7 +65,7 @@ function update() {
 		let step = 5;
 
 		let x = tX + n * step;
-		// y = f(x) 
+		// y = f(t) 
 		Draw.line(x, 0, x, y, "blue");
 
 		vectemp.setX(tX + n * step);
