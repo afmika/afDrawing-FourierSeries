@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Drawing - afmika</title>
+		<title>Drawing (with DFT) - afmika</title>
 		<style type="text/css">
 			#canvas {
 				border: 2px Solid Black;
@@ -11,19 +11,18 @@
 	</head>
 	<body>
 		
-		<h1>Direct Fourier Transform  (DFT) by <a href="https://github.com/afmika">afmika</a> </h1>
+		<h1>Drawing with the Direct Fourier Transform (DFT) - <a href="https://github.com/afmika">afmika</a> </h1>
 		<h3> 
-			Coding challenge : Drawing PADORU-chan with a bunch of SINE / COSINE waves. HELL YEAH!
 			<button onclick="switchMode()">
 				PHASOR CIRCLES
 			</button>
 		</h3>
 
-		<canvas id="canvas" width="1200" height="600"></canvas>	
+		<canvas id="canvas" width="1000" height="500"></canvas>	
 		<div id="controls"></div>
 		<div id="status"></div>
 
-		<script type="text/javascript" src="padoru2.js"></script>
+		<script type="text/javascript" src="pansy.js"></script>
 		<script type="text/javascript" src="graphics/DrawingTools.js"></script>
 		<script type="text/javascript" src="graphics/ControlsGUI.js"></script>
 
@@ -33,6 +32,6 @@
 		<script type="text/javascript" src="classes/DFT.js"></script>
 
 
-		<script type="text/javascript" src="script/drawing-example.js"></script>
+		<script type="text/javascript" src="script/drawing.version.2-example.js"></script>
 	</body>
 </html>

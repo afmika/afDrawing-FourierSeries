@@ -20,14 +20,13 @@ const amplitude = 100; //px
 const frequency = 0.5; // 2pi / s
 const phi = Math.PI / 4; //angle
 
-// illustrates the fact that dt = n * 2*pi/ N
-// we take one sample in each frame => in one sec = _fps new frames
+// one sample in each frame => in one sec = _fps new samples
 const dt =  2 * Math.PI / _fps;
 const nb_samples_max = 150;
 let time = 0;
 
 
-let samples = []; // samples taken with a dt interval
+let samples = [];
 let translateX = amplitude,
 	translateY = canvas.height / 2;
 let phasor = new Phasor(amplitude, frequency, phi);

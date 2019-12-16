@@ -29,12 +29,12 @@ let phasorX = null,
 	phasorY = null;
 let drawing = [];
 let samples = [];
-const delta_sample = 6; // ignores some points
+const delta_sample = 5; // ignores some points
 
 // applying the Direct Fourier Transform to the sample data
 const dft = new DFT();
-dft.run( datas,  delta_sample, function(data) {
-	alert("PADORU - SIGNAL LOADED!");
+dft.run( datas, delta_sample, function(data) {
+	alert("SIGNAL LOADED! SKIPED : "+delta_sample);
 	data_loaded = true;
 	phasorX = data.fourierX.sort( (a,b) => a.getAmplitude() < b.getAmplitude());
 	phasorY = data.fourierY.sort( (a,b) => a.getAmplitude() < b.getAmplitude());
@@ -61,7 +61,7 @@ function runAnimation( phasors, axis ) {
 		nextX += z.getRe(); 
 		nextY += z.getIm(); 
 		if(enable_circles) {
-			Draw.circle(nextX, nextY, phasors[i].getAmplitude(), "grey");
+			Draw.circle(oldX, oldY, phasors[i].getAmplitude(), "grey");
 		}
 		Draw.line(oldX, oldY, nextX, nextY, "red");
 	}

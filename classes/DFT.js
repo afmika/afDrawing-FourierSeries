@@ -6,16 +6,47 @@
  
 class DFT {
 	constructor() {}
+
+	runForComplexData(data_obj, skip, fun) {
+		let cmpxs = [];
+		let index = 0;
+		data_obj.forEach(point => {
+			if(skip != undefined) {
+				if(skip <= 0) {
+					cmpxs.push( point );
+				} else {
+					if(index % skip == 0) {
+						cmpxs.push( point );					
+					}
+				}
+				index++;
+			} else {
+				cmpxs.push( point );					
+			}
+		});
+
+		if(fun) {
+			fun({
+				fourier : DFT.computeSignals( cmpxs, 'COMPLEX_DATA' ),
+			});
+		}
+	}
+
 	run(data_obj, skip, fun) {
 		let x = [], y = [];
 		let index = 0;
 		data_obj.forEach(point => {
 			if(skip != undefined) {
-				if(index % skip == 0) {
+				if(skip <= 0) {
 					x.push( point.x );
-					y.push( point.y );					
+					y.push( point.y );
+				} else {
+					if(index % skip == 0) {
+						x.push( point.x );
+						y.push( point.y );					
+					}
+					index++;
 				}
-				index++;
 			} else {
 				x.push( point.x );
 				y.push( point.y );
@@ -29,23 +60,57 @@ class DFT {
 			});
 		}
 	}
-	static computeSignals(data) {
+	static computeSignals(data, option) {
 	  /*
 	  * BASIC IMPLEMENTATION OF THE DFT (DIRECT FOURIER TRANSFORM)
 	  * X[k] = A(k) + i (b) = R.exp(i q) = Sum(n from 0 to N-1 of [ data[n] * exp(-2pi.k.n/N)) ]
 	  */
 	  // simple stuff :)
 		let nb_points = data.length;
+		let is_complex = false;
+		if(option != undefined) {
+			is_complex = option == 'COMPLEX_DATA';
+			console.log("DATA SET TREATED AS COMPLEX NUMBERS");
+		} else {
+			console.log("DATA SET TREATED AS REAL NUMBERS");
+		}
+
 		let X = []; // will contain the DFT result
 		for (let k = 0; k < nb_points; k++) {
 			let temp_k = new Complex(0, 0); 
 			for (var n = 0; n < nb_points; n++) {
 				let phi = (2 * Math.PI * k * n) / nb_points; 
-				temp_k = temp_k.add(new Complex(
-					data[n] * Math.cos(phi), /* plugging -1 will reverse the drawing with pi/2 rotation */
-					data[n] * Math.sin(phi) /* plugging -1 will reverse the drawing order */
-				));
+				
+				if( is_complex ) {
+
+					// the data set must be an array of points [... {x, y}]
+					if(data[n].x == undefined || data[n].y == undefined) {
+						throw "data must be an array of points ! [... ,{x, y}..]";
+					}
+					
+					let data_n = new Complex(data[n].x, data[n].y);
+					// A.exp(ai) * B.exp(bi) = A.B.exp((a+b)i) 
+					let polar_n = Complex.toPolarForm(data_n);
+					let _value = Complex.fromPolarForm({
+						angle: polar_n.angle + phi,
+						module: polar_n.module * 1 // well...
+					});
+
+					// reverse the order
+					//_value.getRe(_value.getRe() * -1);
+
+					temp_k = temp_k.add(_value);
+
+				} else {
+
+					// the data set must be an array of real numbers [ ... 1, -1, 3.5, ...]
+					temp_k = temp_k.add(new Complex(
+						data[n] * Math.cos(phi), /* plugging -1 will reverse the drawing with pi/2 rotation */
+						data[n] * Math.sin(phi) /* plugging -1 will reverse the drawing order */
+					));
+				}
 			}
+
 			temp_k = temp_k.times( 1 / nb_points );
 			
 			let polar = Complex.toPolarForm(temp_k);
