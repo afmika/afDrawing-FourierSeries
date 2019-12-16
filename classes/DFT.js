@@ -75,35 +75,38 @@ class DFT {
 			console.log("DATA SET TREATED AS REAL NUMBERS");
 		}
 
-		let X = []; // will contain the DFT result
+		let X = []; // will contain the DFT result <-> [...coefs * exp(-2pi n k/ N)..]
 		for (let k = 0; k < nb_points; k++) {
 			let temp_k = new Complex(0, 0); 
 			for (var n = 0; n < nb_points; n++) {
-				let phi = (2 * Math.PI * k * n) / nb_points; 
+				// -2pi n k / N
+				let phi = -1 * (2 * Math.PI * k * n) / nb_points; 
 				
 				if( is_complex ) {
 
 					// the data set must be an array of points [... {x, y}]
 					if(data[n].x == undefined || data[n].y == undefined) {
-						throw "data must be an array of points ! [... ,{x, y}..]";
+						throw "data[] must be an array of points ! [... ,{x, y}..]";
 					}
 					
 					let data_n = new Complex(data[n].x, data[n].y);
-					// A.exp(ai) * B.exp(bi) = A.B.exp((a+b)i) 
 					let polar_n = Complex.toPolarForm(data_n);
+
+					// computes coef(angle) * exp(-2pi n k / N)
+					// A.exp(ai) * B.exp(bi) = A.B.exp((a+b)i) 
 					let _value = Complex.fromPolarForm({
 						angle: polar_n.angle + phi,
 						module: polar_n.module * 1 // well...
 					});
-
-					// reverse the order
-					//_value.getRe(_value.getRe() * -1);
 
 					temp_k = temp_k.add(_value);
 
 				} else {
 
 					// the data set must be an array of real numbers [ ... 1, -1, 3.5, ...]
+					if(typeof data[n] != 'number') {
+						throw "data[] must be an array of real numbers ! [.... a[k], a[k+1], ...]";
+					}
 					temp_k = temp_k.add(new Complex(
 						data[n] * Math.cos(phi), /* plugging -1 will reverse the drawing with pi/2 rotation */
 						data[n] * Math.sin(phi) /* plugging -1 will reverse the drawing order */
