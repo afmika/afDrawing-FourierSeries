@@ -31,7 +31,7 @@ let drawing = [];
 let samples = [];
 const delta_sample = 5; // ignores some points
 
-// applying the Direct Fourier Transform to the sample data
+// applying the Discrete Fourier Transform to the sample data
 const dft = new DFT();
 dft.run( datas, delta_sample, function(data) {
 	alert("SIGNAL LOADED! SKIPED : "+delta_sample);

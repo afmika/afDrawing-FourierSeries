@@ -30,7 +30,7 @@ let drawing = [];
 let samples = [];
 const delta_sample = 0; // ignores some points
 
-// applying the Direct Fourier Transform to the sample data
+// applying the Discrete Fourier Transform to the sample data
 const dft = new DFT();
 
 dft.runForComplexData( datas,  delta_sample, function(data) {

@@ -62,8 +62,9 @@ class DFT {
 	}
 	static computeSignals(data, option) {
 	  /*
-	  * BASIC IMPLEMENTATION OF THE DFT (DIRECT FOURIER TRANSFORM)
+	  * BASIC IMPLEMENTATION OF THE DFT (DISCRETE FOURIER TRANSFORM)
 	  * X[k] = A(k) + i (b) = R.exp(i q) = Sum(n from 0 to N-1 of [ data[n] * exp(-2pi.k.n/N)) ]
+	  * where x[n] = data[n] = 
 	  */
 	  // simple stuff :)
 		let nb_points = data.length;
@@ -77,10 +78,11 @@ class DFT {
 
 		let X = []; // will contain the DFT result <-> [...coefs * exp(-2pi n k/ N)..]
 		for (let k = 0; k < nb_points; k++) {
-			let temp_k = new Complex(0, 0); 
+			let temp_k = new Complex(0, 0);
+
 			for (var n = 0; n < nb_points; n++) {
 				// -2pi n k / N
-				let phi = -1 * (2 * Math.PI * k * n) / nb_points; 
+				let phi = (2 * Math.PI * k * n) / nb_points; 
 				
 				if( is_complex ) {
 
@@ -91,8 +93,6 @@ class DFT {
 					
 					let data_n = new Complex(data[n].x, data[n].y);
 					let polar_n = Complex.toPolarForm(data_n);
-
-					// computes coef(angle) * exp(-2pi n k / N)
 					// A.exp(ai) * B.exp(bi) = A.B.exp((a+b)i) 
 					let _value = Complex.fromPolarForm({
 						angle: polar_n.angle + phi,
@@ -112,9 +112,11 @@ class DFT {
 						data[n] * Math.sin(phi) /* plugging -1 will reverse the drawing order */
 					));
 				}
+				// 
 			}
 
 			temp_k = temp_k.times( 1 / nb_points );
+			// temp_k  = coef[k] * exp(2pi n k / N)
 			
 			let polar = Complex.toPolarForm(temp_k);
 			let amplitude = polar.module, 
