@@ -20,6 +20,7 @@ let dt = 1;
 let time = 0;
 let data_loaded = false;
 let enable_circles = false;
+// let focus_pen = true;
 let translateX = 200,
 	translateY = 200;
 let scale = 1.3;
@@ -118,6 +119,7 @@ function update() {
 		// begin drawing
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.scale(scale, scale);
+
 		ctx.translate(translateX, translateY);
 		
 		let __pen = runAnimation(phasor); // complex number
@@ -126,7 +128,6 @@ function update() {
 		samples.push( pen );	
 		
 		Draw.point(pen, "green");
-
 		let oldX = drawing[0].getX(), oldY = drawing[0].getY();
 		for (var i = 1; i < drawing.length; i++) {
 			let nextX = drawing[i].getX(),
@@ -138,7 +139,7 @@ function update() {
 			oldY = nextY;
 
 		}
-	
+
 		// drawing the axis
 		Draw.line(pen.x, -canvas.height, pen.x, canvas.height * 2, "rgb(0, 255, 0, 0.1)");
 		Draw.line(-canvas.width, pen.y, canvas.width, pen.y, "rgb(0, 255, 0, 0.1)");
