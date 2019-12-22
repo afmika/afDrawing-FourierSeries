@@ -90,4 +90,39 @@ class DrawingTools {
 		context.fill();
 		context.closePath();
 	}
+	
+	
+	arrow(minX, minY, maxX, maxY, stroke, arrow_length, line_width){
+		let context = this.context;
+
+		let angle = Math.atan2(maxY - minY, maxX - minX);
+		let x, y;
+		let length = arrow_length != undefined ? arrow_length : 7;
+				
+		// head
+		context.beginPath();
+		
+		context.lineWidth = 0.5 || line_width;
+		
+		context.strokeStyle = stroke || "black";
+		context.moveTo(minX, minY);
+		context.lineTo(maxX, maxY);
+		context.lineTo(maxX - length * Math.cos(angle - Math.PI / 7), maxY - length * Math.sin(angle - Math.PI / 7));
+		context.moveTo(maxX, maxY);
+		context.lineTo(maxX - length * Math.cos(angle + Math.PI / 7), maxY - length * Math.sin(angle + Math.PI / 7));
+
+		context.stroke();
+		context.closePath();
+		
+		// line
+		context.beginPath();
+		context.strokeStyle = stroke || "black";
+		context.lineWidth = 0.5 || line_width;
+		context.moveTo(minX, minY);
+		context.lineTo(maxX, maxY);
+
+		context.stroke();
+		context.closePath();
+		
+	}
 }

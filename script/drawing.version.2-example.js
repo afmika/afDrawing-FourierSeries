@@ -58,7 +58,10 @@ function runAnimation( phasors ) {
 		if(enable_circles) {
 			Draw.circle(oldX, oldY, phasors[i].getAmplitude(), "rgb(0, 255, 0, 0.4)");
 		}
-		Draw.line(oldX, oldY, nextX, nextY, "red");
+		
+		let rel_arrow_length = 50 / (i + 10);// decrease
+		let rel_alpha = 4 / (i + 1) ;// decrease
+		Draw.arrow(oldX, oldY, nextX, nextY,  "rgb(255, 0, 0, "+rel_alpha+")", rel_arrow_length);
 	}
 
 	let head = new Vector(nextX, nextY);
