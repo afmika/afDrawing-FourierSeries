@@ -61,23 +61,16 @@ class DrawingTools {
 		context.closePath();		
 	}
 
-	phasor(phasor, time, stroke, fill) {
+	phasor(phasor, time, stroke) {
 		// we start at 0, 0 and translate the context instead
 		let context = this.context;
 		let radius = phasor.getAmplitude();
-		this.circle(0, 0, radius, stroke, fill);
+		this.circle(0, 0, radius, stroke);
 
 		let z = phasor.at(time);
-		context.beginPath();
-		context.strokeStyle = stroke || "black";
-		context.moveTo(0, 0);
-		context.lineTo(z.getRe(), z.getIm());
-		if( fill ) {
-			context.fillStyle = fill;
-			context.fill();
-		}		
-		context.stroke();
-		context.closePath();
+
+		let arrow_length = 20;
+		this.arrow(0, 0, z.getRe(), z.getIm(), stroke, arrow_length);
 	}
 
 	point( vec , color ) {
