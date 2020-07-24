@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Phasor - Test</title>
+		<title>Drawing (with DFT) - afmika</title>
 		<style type="text/css">
 			#canvas {
 				border: 2px Solid Black;
@@ -17,16 +17,19 @@
 	<body>
 		<div class="content">
             <div class="row">
-		        <div class="col-md-10 col-md-offset-1" >
-		            <h3 class="text text-primary">Phasor example - afmika</h3>
+                <div class="col-md-8 col-md-offset-2" >
+                    <h3 class="text text-primary">Drawing Padoru with a 2D Fourier transform - afmika</h3>
+					<button onclick="switchMode()" class="btn btn-xs btn-danger">
+						Enable / Disable circles
+					</button>
 						<br/>
-					<canvas id="canvas" width="950" height="350"></canvas>	
+					<canvas id="canvas" width="800" height="400"></canvas>	
 					<div id="controls"></div>
 					<div id="status"></div>
-		        </div>
-	    	</div>
-		</div>
-
+                </div>
+            </div>
+        </div>
+		<script type="text/javascript" src="datas/padoru2.js"></script>
 		<script type="text/javascript" src="graphics/DrawingTools.js"></script>
 		<script type="text/javascript" src="graphics/ControlsGUI.js"></script>
 
@@ -35,7 +38,6 @@
 		<script type="text/javascript" src="classes/Phasor.js"></script>
 		<script type="text/javascript" src="classes/DFT.js"></script>
 
-
-		<script type="text/javascript" src="scripts/phasor-example.js"></script>
+		<script type="text/javascript" src="scripts/drawing-with-a-2D-DFT.js"></script>
 	</body>
 </html>

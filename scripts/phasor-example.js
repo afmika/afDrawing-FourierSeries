@@ -83,10 +83,10 @@ function update() {
 	let deg = angle * 180 / Math.PI;
 	StatusGui.appendHTML("");
 	StatusGui.show("");
-	StatusGui.appendText(" - Frequency "+phasor.getPulsation()+" x 2pi/s" );
+	StatusGui.appendText("Frequency "+phasor.getPulsation()+" x 2pi/s" );
 	StatusGui.appendText(" - Amplitude "+phasor.getAmplitude()+" px" );
 	StatusGui.appendText(" - Angle ~ "+Math.floor(deg) );
-	StatusGui.appendHTML("<h2>y(t) = "+amplitude+".exp[("+frequency+" t + "+phi+")i]</h2>");
+	StatusGui.appendHTML("<h3>y(t) = "+amplitude+".exp[("+frequency+" t + "+phi+")i]</h3>");
 	StatusGui.appendHTML("<h4>y("+time+") = "+amplitude+".exp[("+frequency * time + phi+")i]</h4>");
 	StatusGui.appendHTML("<h4>y("+time+") = "+cmptemp.getRe()+" + i "+cmptemp.getIm());
 
@@ -95,7 +95,7 @@ function update() {
 
 
 let frame_counter = setInterval(function() {
-	Gui.show("FPS "+nframes + " (= nb. Samples / sec)");
+	Gui.show("FPS : "+nframes );
 	nframes = 0;
 }, 1000);
 let interval = setInterval(update, _anim);
